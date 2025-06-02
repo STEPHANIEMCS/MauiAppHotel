@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiAppHotel.Views.ContratacaoHospedagem"
-             Title="Contratação de Hospedagem">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiAppHotel.Views.ContratacaoHospedagem"
+    BackgroundColor="{StaticResource Gray100}"
+    Title="Contratação de Hospedagem">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+    <VerticalStackLayout Padding="20">
 
-            <Label Text="Selecione o Quarto:" FontAttributes="Bold" />
-            <Picker x:Name="pck_quarto" Title="Quartos disponíveis" />
+        <Label Text="Selecione o Quarto:" FontSize="20" />
+        <Picker x:Name="pck_quarto" />
 
-            <Label Text="Adultos:" FontAttributes="Bold" />
-            <Stepper x:Name="stp_adultos" Minimum="0" Maximum="10" Increment="1" Value="1" />
+        <Label Text="Quantidade de Adultos:" FontSize="20"/>
+        <Stepper x:Name="stp_adultos" Minimum="1" Maximum="10" Value="1" />
 
-            <Label Text="Crianças:" FontAttributes="Bold" />
-            <Stepper x:Name="stp_criancas" Minimum="0" Maximum="10" Increment="1" Value="0" />
+        <Label Text="Quantidade de Crianças:" FontSize="20"/>
+        <Stepper x:Name="stp_criancas" Minimum="0" Maximum="10" Value="0" />
 
-            <Label Text="Data de Check-in:" FontAttributes="Bold" />
-            <DatePicker x:Name="dtpck_checkin" />
+        <Label Text="Data Check-in:" FontSize="20"/>
+        <DatePicker x:Name="dtpck_checkin" />
 
-            <Label Text="Data de Check-out:" FontAttributes="Bold" />
-            <DatePicker x:Name="dtpck_checkout" />
+        <Label Text="Data Check-out:" FontSize="20"/>
+        <DatePicker x:Name="dtpck_checkout" />
 
-            <Button Text="Confirmar" Clicked="Button_Confirmar_Clicked" />
-
-        </VerticalStackLayout>
-    </ScrollView>
+        <Button Text="Confirmar Hospedagem" Clicked="Button_Clicked"/>
+    </VerticalStackLayout>
 
 </ContentPage>
-

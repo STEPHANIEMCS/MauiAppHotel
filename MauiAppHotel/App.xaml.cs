@@ -1,42 +1,37 @@
 ﻿using MauiAppHotel.Models;
 
-namespace MauiAppHotel
+namespace MauiAppHotel;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public static List<Quarto> ListaQuartos { get; private set; } = new();
+
+    public App()
     {
-        public List<Quarto> lista_quartos = new List<Quarto>
+        InitializeComponent();
+
+        ListaQuartos = new List<Quarto>
         {
-            new Quarto()
-            {
-                Descricao = "Suíte Super Luxo",
-                ValorDiariaAdulto = 110.0,
-                ValorDiariaCrianca = 55.0
-            },
-            new Quarto()
+            new Quarto
             {
                 Descricao = "Suíte Luxo",
-                ValorDiariaAdulto = 80.0,
-                ValorDiariaCrianca = 40.0
+                ValorDiariaAdulto = 250,
+                ValorDiariaCrianca = 150
             },
-            new Quarto()
+            new Quarto
             {
-                Descricao = "Suíte Single",
-                ValorDiariaAdulto = 50.0,
-                ValorDiariaCrianca = 25.0
+                Descricao = "Suíte Master",
+                ValorDiariaAdulto = 350,
+                ValorDiariaCrianca = 200
             },
-            new Quarto()
+            new Quarto
             {
-                Descricao = "Suíte Crise",
-                ValorDiariaAdulto = 25.0,
-                ValorDiariaCrianca = 12.5
+                Descricao = "Suíte Super Luxo",
+                ValorDiariaAdulto = 500,
+                ValorDiariaCrianca = 300
             }
         };
 
-        public App()
-        {
-            InitializeComponent();
-
-            MainPage = new NavigationPage(new Views.ContratacaoHospedagem());
-        }
+        MainPage = new NavigationPage(new Views.ContratacaoHospedagem());
     }
 }

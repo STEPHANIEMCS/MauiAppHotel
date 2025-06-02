@@ -1,19 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiAppHotel.Views.HospedagemContradada"
-             Title="Detalhes da Hospedagem">
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiAppHotel.Views.HospedagemContratada"
+    BackgroundColor="#000000"
+    NavigationPage.HasNavigationBar="False">
 
-    <VerticalStackLayout Padding="20" Spacing="10">
+    <VerticalStackLayout Padding="20">
 
-        <Label x:Name="lbl_suite" FontAttributes="Bold" FontSize="Medium"/>
-        <Label x:Name="lbl_adultos" />
-        <Label x:Name="lbl_criancas" />
-        <Label x:Name="lbl_checkin" />
-        <Label x:Name="lbl_checkout" />
-        <Label x:Name="lbl_estadia" />
-        <Label x:Name="lbl_total" FontAttributes="Bold" FontSize="Large" TextColor="Green"/>
+        <Label 
+            Text="{Binding QuartoSelecionado.Descricao}" 
+            FontSize="32" 
+            TextColor="#2196F3" 
+            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="Adultos: " TextColor="#FFFFFF"/>
+            <Label Text="{Binding QntAdultos}" TextColor="#2196F3" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="Crianças: " TextColor="#FFFFFF"/>
+            <Label Text="{Binding QntCriancas}" TextColor="#2196F3" />
+        </HorizontalStackLayout>
+
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Check-in:" TextColor="#FFFFFF"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="Check-out:" TextColor="#FFFFFF"/>
+            <Label Grid.Row="0" Grid.Column="2" Text="Estadia:" TextColor="#FFFFFF"/>
+
+            <Label Grid.Row="1" Grid.Column="0" 
+                   Text="{Binding DataCheckIn, StringFormat='{0:dd/MM/yyyy}'}"
+                   TextColor="#2196F3" />
+
+            <Label Grid.Row="1" Grid.Column="1" 
+                   Text="{Binding DataCheckOut, StringFormat='{0:dd/MM/yyyy}'}"
+                   TextColor="#2196F3" />
+
+            <Label Grid.Row="1" Grid.Column="2" 
+                   Text="{Binding Estadia}"
+                   TextColor="#2196F3" />
+        </Grid>
+
+        <Frame Margin="10" BorderColor="#2196F3">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="Valor Total: " TextColor="#FFFFFF"/>
+                <Label Text="{Binding ValorTotal, StringFormat='{0:C}'}" 
+                       TextColor="#2196F3" />
+            </HorizontalStackLayout>
+        </Frame>
 
     </VerticalStackLayout>
-
 </ContentPage>

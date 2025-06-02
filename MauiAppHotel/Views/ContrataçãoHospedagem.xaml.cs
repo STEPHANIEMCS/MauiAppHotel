@@ -1,76 +1,58 @@
+using MauiAppHotel.Models;
+using MauiAppHotel.Views;
 using System;
-using System.Collections.Generic;
 using Microsoft.Maui.Controls;
 
-namespace MauiAppHotel.Views;
-
-public partial class ContratacaoHospedagem : ContentPage
+namespace MauiAppHotel.Views
 {
-    public ContratacaoHospedagem()
+    public partial class ContratacaoHospedagem : ContentPage
     {
-        InitializeComponent();
-
-        // Popula o Picker com as opções de suíte
-        pck_quarto.ItemsSource = new List<string>
+        public ContratacaoHospedagem()
         {
-            "Suíte Standard",
-            "Suíte Luxo",
-            "Suíte Master",
-            "Suíte Presidencial"
-        };
+            InitializeComponent();
 
-        // Seleciona a primeira suíte automaticamente
-        if (pck_quarto.ItemsSource is IList<string> itens && itens.Count > 0)
-            pck_quarto.SelectedIndex = 0;
+            pck_quarto.ItemsSource = new[]
+            {
+                new Quarto { Descricao = "Suíte Luxo", ValorDiariaAdulto = 150, ValorDiariaCrianca = 75 },
+                new Quarto { Descricao = "Quarto Standard", ValorDiariaAdulto = 100, ValorDiariaCrianca = 50 }
+            };
 
-        // Define data mínima para check-in como hoje
-        dtpck_checkin.MinimumDate = DateTime.Today;
-
-        // Define data mínima para check-out como amanhã
-        dtpck_checkout.MinimumDate = DateTime.Today.AddDays(1);
-    }
-
-    private async void BtnAvancar_Clicked(object sender, EventArgs e)
-    {
-        string? suiteSelecionada = pck_quarto.SelectedItem as string;
-
-        if (string.IsNullOrEmpty(suiteSelecionada))
-        {
-            await DisplayAlert("Erro", "Por favor, selecione uma suíte.", "OK");
-            return;
+            pck_quarto.ItemDisplayBinding = new Binding("Descricao");
         }
 
-        int adultos = (int)stp_adultos.Value;
-        int criancas = (int)stp_criancas.Value;
-
-        DateTime checkin = dtpck_checkin.Date;
-        DateTime checkout = dtpck_checkout.Date;
-
-        if (checkout <= checkin)
+        private async void Button_Confirmar_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Erro", "Data de check-out deve ser após a data de check-in.", "OK");
-            return;
-        }
+            if (pck_quarto.SelectedItem is Quarto quartoSelecionado)
+            {
+                int adultos = (int)stp_adultos.Value;
+                int criancas = (int)stp_criancas.Value;
+                DateTime checkin = dtpck_checkin.Date;
+                DateTime checkout = dtpck_checkout.Date;
 
-        int dias = (checkout - checkin).Days;
+                if (checkout <= checkin)
+                {
+                    await DisplayAlert("Erro", "Data de checkout deve ser maior que a de checkin.", "OK");
+                    return;
+                }
 
-        string resumo = $"Suíte: {suiteSelecionada}\n" +
-                        $"Adultos: {adultos}\n" +
-                        $"Crianças: {criancas}\n" +
-                        $"Check-in: {checkin:dd/MM/yyyy}\n" +
-                        $"Check-out: {checkout:dd/MM/yyyy}\n" +
-                        $"Dias de estadia: {dias}";
+                int estadia = (checkout - checkin).Days;
 
-        bool confirmar = await DisplayAlert("Confirmação da Reserva", resumo + "\n\nDeseja confirmar a reserva?", "Sim", "Não");
+                double total = estadia * (adultos * quartoSelecionado.ValorDiariaAdulto + criancas * quartoSelecionado.ValorDiariaCrianca);
 
-        if (confirmar)
-        {
-            await DisplayAlert("Sucesso", "Reserva confirmada!", "OK");
-            // Aqui você pode salvar a reserva ou navegar para outra página
-        }
-        else
-        {
-            await DisplayAlert("Cancelado", "Reserva não confirmada.", "OK");
+                await Navigation.PushAsync(new HospedagemContradada(
+                    quartoSelecionado.Descricao,
+                    adultos,
+                    criancas,
+                    checkin,
+                    checkout,
+                    estadia,
+                    total));
+            }
+            else
+            {
+                await DisplayAlert("Erro", "Selecione um quarto válido.", "OK");
+            }
         }
     }
 }
+

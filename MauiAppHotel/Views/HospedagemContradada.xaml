@@ -2,11 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppHotel.Views.HospedagemContradada"
-             Title="HospedagemContradada">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Detalhes da Hospedagem">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Label x:Name="lbl_suite" FontAttributes="Bold" FontSize="Medium"/>
+        <Label x:Name="lbl_adultos" />
+        <Label x:Name="lbl_criancas" />
+        <Label x:Name="lbl_checkin" />
+        <Label x:Name="lbl_checkout" />
+        <Label x:Name="lbl_estadia" />
+        <Label x:Name="lbl_total" FontAttributes="Bold" FontSize="Large" TextColor="Green"/>
+
     </VerticalStackLayout>
+
 </ContentPage>
